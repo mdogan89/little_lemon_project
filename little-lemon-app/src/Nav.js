@@ -1,11 +1,11 @@
 import React from 'react'
-import logo from './Logo.svg';
+import logo from './img/Logo.svg';
 
 export default function Nav() {
   return (
-    <nav style={{"display":"flex"}}>
-        <img src={logo}></img>
-        <ul style={{"display":"flex"}}>
+    <nav>
+        <img src={logo} alt="logo"></img>
+        <ul>
             <li> <a href='#'>Home</a> </li>
             <li> <a href='#'>About</a> </li>
             <li> <a href='#'>Menu</a> </li>

@@ -1,4 +1,113 @@
-.App {
+nav {
+display: flex;
+}
+
+nav img {
+  margin: 20px 20px 20px 290px;
+  width: 185px;
+  height: 50px;
+}
+
+nav li a {
+  text-decoration: none;
+  color: #333333;
+  font-family:"Karla";
+  font-size: 20px;
+  font-weight: 700;
+}
+
+nav ul{
+  margin-right: 290px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style-type: none;
+  padding-inline-start: 0px;
+}
+
+header{
+  height: 300px;
+  background-color: #495e57;
+  display: flex;
+  padding: 30px 290px 0px 290px;
+  justify-content: space-between;
+}
+
+h1 {
+  font-family: "Markazi Text";
+  font-size: 64px;
+  font-weight: 500;
+  margin: 0px;
+}
+
+h2  {
+  font-family: "Markazi Text";
+  font-size: 40px;
+  font-weight: 400;
+  margin: 0px;
+}
+
+header article{
+  width: 280px;
+}
+
+header article h1{
+  color: #f4ce14;
+  line-height: 0.5;
+}
+
+header article h2{
+  color: #ffffff
+}
+
+header article p{
+  font-family: "Karla";
+  font-size: 18px;
+  font-weight: 500;
+  color: #ffffff;
+  line-height: 1.5;
+  margin-block-start: 0px;
+  margin-block-end: 20px;
+}
+
+button{
+  width:200px;
+  height: 60px;
+  border-radius: 16px;
+  background-color: #f4ce14;
+  color: #333333;
+  font-family: "Karla";
+  font-size: 18px;
+  font-weight: 600;
+  border: none;
+}
+
+button:hover{
+  cursor: pointer;
+}
+
+header img{
+  width: 300px;
+  height: 365px;
+  border-radius: 16px;
+  object-fit: cover;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +144,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */
