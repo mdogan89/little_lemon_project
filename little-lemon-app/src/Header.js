@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
+import React from 'react'
 import img from "./img/restauranfood.jpg"
 
-export default class Header extends Component {
-  render() {
-    return (
-      <header>
+export default function Header() {
+  return (
+    <header>
+      <section>
         <article>
           <h1>Little Lemon</h1>
           <h2>Chicago</h2>
@@ -12,7 +12,7 @@ export default class Header extends Component {
           <button>Reserve a table</button>
         </article>
         <img src={img} alt="bruchettas"></img>
-      </header>
-    )
-  }
+      </section>
+    </header>
+  )
 }

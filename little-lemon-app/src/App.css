@@ -1,14 +1,39 @@
-nav {
-display: flex;
+#root {
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
 }
 
-nav img {
-  margin: 20px 20px 20px 290px;
-  width: 185px;
-  height: 50px;
+h1 {
+  font-family: "Markazi Text";
+  font-size: 64px;
+  font-weight: 500;
+  line-height: 1;
+  color:#333333;
 }
 
-nav li a {
+h2 {
+  font-family: "Markazi Text";
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 1;
+  color:#333333
+}
+
+p {
+  font-family: "Karla";
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.5;
+  color:#333333
+}
+
+ul {
+  list-style-type: none;
+}
+
+li .nav-link {
   text-decoration: none;
   color: #333333;
   font-family:"Karla";
@@ -16,62 +41,62 @@ nav li a {
   font-weight: 700;
 }
 
-nav ul{
-  margin-right: 290px;
-  width: 100%;
+nav {
+display: flex;
+justify-content: center;
+margin: 10px auto;
+}
+
+nav img {
+  width: 260px;
+}
+
+nav ul {
+  margin-left: 20px;
+  width: 580px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  list-style-type: none;
-  padding-inline-start: 0px;
 }
 
-header{
-  height: 300px;
-  background-color: #495e57;
+main {
   display: flex;
-  padding: 30px 290px 0px 290px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+section {
+  display: flex;
+  width: 860px;
   justify-content: space-between;
 }
 
-h1 {
-  font-family: "Markazi Text";
-  font-size: 64px;
-  font-weight: 500;
-  margin: 0px;
+header {
+  height: 375px;
+  background-color: #495e57;
+  display: flex;
+  padding-top: 40px;
+  justify-content: center;
+  width: 100%;
 }
 
-h2  {
-  font-family: "Markazi Text";
-  font-size: 40px;
-  font-weight: 400;
-  margin: 0px;
-}
-
-header article{
-  width: 280px;
-}
-
-header article h1{
+header h1{
   color: #f4ce14;
-  line-height: 0.5;
 }
 
-header article h2{
-  color: #ffffff
+header h2{
+  color: #edefee;
 }
 
-header article p{
-  font-family: "Karla";
-  font-size: 18px;
-  font-weight: 500;
-  color: #ffffff;
-  line-height: 1.5;
-  margin-block-start: 0px;
-  margin-block-end: 20px;
+header p{
+  color: #edefee;
+  width: 260px;
+  margin: 20px 0px;
 }
 
-button{
+button {
   width:200px;
   height: 60px;
   border-radius: 16px;
@@ -88,30 +113,251 @@ button:hover{
 }
 
 header img{
-  width: 300px;
-  height: 365px;
+  width: 340px;
+  height: 380px;
   border-radius: 16px;
   object-fit: cover;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* .App {
-  text-align: center;
+#specials {
+  display: flex;
+  flex-direction: column;
+  margin: 90px auto 50px auto;
 }
 
-.App-logo {
+#specials article{
+  display: flex;
+  justify-content: space-between;
+}
+
+#specials #cards{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 32px;
+  margin-top: 40px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  width: 265px;
+  background-color: #edefee;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+
+.card img {
+width: 265px;
+height: 175px;
+object-fit: cover;
+border-top-left-radius: 16px;
+border-top-right-radius: 16px;
+}
+
+.card div{
+  margin: 20px 20px;
+}
+
+h3 {
+  font-family: "Karla";
+  font-size: 18px;
+  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+  margin: 0px;
+  color: #333333;
+}
+
+h3 span {
+ color: #ee9972;
+}
+
+.card p {
+  font-family: "Karla";
+  font-size: 16px;
+  font-weight: 400;
+  color: #495e57;
+  height: 145px;
+  margin: 20px 0px
+}
+
+.card a {
+  font-family: "Karla";
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  color: #333333;
+}
+
+.card a img {
+  width: 18px;
+  height: 12px;
+  border-radius: 0px;
+  margin-left: 20px;
+}
+
+#testimonials {
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  background-color: #495e57;
+}
+
+#testimonials article {
+  display: flex;
+  justify-content: space-between;
+  width: 860px;
+  margin: 30px auto 50px auto;
+}
+
+#testimonials h1 {
+  margin: 40px auto;
+  color: #f4ce14;
+}
+
+.testimonial {
+  background-color: #edefee;
+  width: 160px;
+  padding: 20px;
+  border-radius: 16px;
+  box-sizing: content-box;
+}
+
+.testimonial div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.testimonial img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin: 20px 0px 20px 0px;
+}
+
+.testimonial .star {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+}
+
+.testimonial p {
+  font-family: "Karla";
+  font-size: 16px;
+  font-weight: 400;
+  color:#333333;
+}
+
+h4 {
+  font-family: "Karla";
+  font-size: 18px;
+  font-weight: 700;
+  color:#333333;
+}
+
+#about {
+  display: flex;
+  margin: 50px auto;
+  justify-content: space-between;
+}
+
+#about article {
+  width: 430px;
+}
+
+#about img{
+  width: 250px;
+  height: 280px;
+  object-fit: cover;
+}
+
+#about p {
+  font-family: "Karla";
+  font-size: 18px;
+  font-weight: 500;
+  color:#333333;
+  width: 280px;
+  line-height: 1.5;
+  margin: 20px 0px;
+}
+
+#about-images {
+  display: flex;
+}
+
+#mario {
+margin-top:95px
+}
+
+#marioAdrian {
+  position: absolute;
+  transform: translate(180px,0px);
+  z-index: -1;
+}
+
+footer {
+  background-color: #333333;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+}
+
+footer section {
+  margin: 40px auto 20px auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.logo {
+  align-self: center;
+  justify-self: center;
+}
+
+.logo img {
+  height: 225px;
+}
+
+h5 {
+  font-family: "Karla";
+  font-size: 20px;
+  font-weight: 800;
+  color:#edefee;
+}
+
+footer li {
+  margin: 10px 0px
+}
+
+footer a {
+  text-decoration: none;
+  font-family: "Karla";
+  font-size: 18px;
+  font-weight: 500;
+  color:#edefee;
+}
+
+footer p {
+  margin: 10px 0px;
+  font-family: "Karla";
+  font-size: 18px;
+  font-weight: 500;
+  color:#edefee;
+  width: 200px;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
@@ -136,12 +382,4 @@ header img{
 .App-link {
   color: #61dafb;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */
+*/
