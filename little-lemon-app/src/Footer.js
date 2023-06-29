@@ -33,7 +33,7 @@ export default function Footer() {
     <footer>
       <section>
         <article className='logo'>
-          <img src={logo}></img>
+          <img src={logo} alt='logo'></img>
         </article>
         <article>
           <h5>Doormat Navigation</h5>

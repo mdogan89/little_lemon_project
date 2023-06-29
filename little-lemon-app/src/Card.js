@@ -6,11 +6,11 @@ const Card = ({ title, price, description, imageSrc }) => {
 
     return (
         <div className="card">
-            <img src={imageSrc}></img>
+            <img src={imageSrc} alt={title}></img>
             <div>
                 <h3>{title} <span>{price}</span></h3>
                 <p>{description}</p>
-                <a href="#">Order a delivery<img src={icon}></img></a>
+                <a href="#">Order a delivery<img src={icon} alt="bicycle"></img></a>
             </div>
         </div>
     )
