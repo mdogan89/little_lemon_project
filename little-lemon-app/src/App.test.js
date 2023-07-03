@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import ReservationsPage from './ReservationsPage';
-import { MemoryRouter } from 'react-router-dom';
+import { MemoryRouter, redirect } from 'react-router-dom';
 
 test("Renders the Reservation button", () => {
   render(
@@ -41,3 +41,113 @@ test("Submits reservation form", () => {
   const new_data = localStorage.getItem("bookings");
   expect(data !== new_data)
 })
+
+test("date input html validation", () => {
+  render(
+    <MemoryRouter><ReservationsPage /></MemoryRouter>
+  );
+  const dateSelector = screen.getByLabelText(/Choose date/);
+  const minDate = new Date().toISOString().substring(0, 10);
+  expect(dateSelector).toHaveAttribute("required");
+  expect(dateSelector).toHaveAttribute("min", minDate);
+})
+
+test("time input html validation", () => {
+  render(
+    <MemoryRouter><ReservationsPage /></MemoryRouter>
+  );
+  const timeSelector = screen.getByLabelText(/Choose time/);
+  expect(timeSelector).toHaveAttribute("required");
+})
+
+test("guest input html validation", () => {
+  render(
+    <MemoryRouter><ReservationsPage /></MemoryRouter>
+  );
+  const guestSelector = screen.getByLabelText(/Number of guests/);
+  expect(guestSelector).toHaveAttribute("required");
+  expect(guestSelector).toHaveAttribute("min", "1");
+  expect(guestSelector).toHaveAttribute("max", "10");
+})
+
+test("date input invalid entry", () => {
+  render(
+    <MemoryRouter><ReservationsPage /></MemoryRouter>
+  );
+  let dateSelector = screen.getByLabelText(/Choose date/);
+  fireEvent.change(dateSelector, { target: { value: "" } });
+  const btn = screen.getByText("Make your reservation");
+  expect(btn).toBeDisabled();
+})
+
+test("date input valid entry", () => {
+  render(
+    <MemoryRouter><ReservationsPage /></MemoryRouter>
+  );
+  let dateSelector = screen.getByLabelText(/Choose date/);
+  const minDate = new Date().toISOString().substring(0, 10);
+  fireEvent.change(dateSelector, { target: { value: minDate } });
+  const btn = screen.getByText("Make your reservation");
+  expect(btn).not.toBeDisabled();
+})
+
+test("date input invalid entry", () => {
+  render(
+    <MemoryRouter><ReservationsPage /></MemoryRouter>
+  );
+  let dateSelector = screen.getByLabelText(/Choose date/);
+  fireEvent.change(dateSelector, { target: { value: "2022-12-12" } });
+  const btn = screen.getByText("Make your reservation");
+  expect(btn).toBeDisabled();
+})
+
+test("guest input invalid entry", () => {
+  render(
+    <MemoryRouter><ReservationsPage /></MemoryRouter>
+  );
+  const guestSelector = screen.getByLabelText(/Number of guests/);
+  fireEvent.change(guestSelector, { target: { value: "string" } });
+  const btn = screen.getByText("Make your reservation");
+  expect(btn).toBeDisabled();
+})
+
+test("guest input invalid entry", () => {
+  render(
+    <MemoryRouter><ReservationsPage /></MemoryRouter>
+  );
+  const guestSelector = screen.getByLabelText(/Number of guests/);
+  fireEvent.change(guestSelector, { target: { value: "" } });
+  const btn = screen.getByText("Make your reservation");
+  expect(btn).toBeDisabled();
+})
+
+test("guest input invalid entry", () => {
+  render(
+    <MemoryRouter><ReservationsPage /></MemoryRouter>
+  );
+  const guestSelector = screen.getByLabelText(/Number of guests/);
+  fireEvent.change(guestSelector, { target: { value: 0 } });
+  const btn = screen.getByText("Make your reservation");
+  expect(btn).toBeDisabled();
+})
+
+test("guest input invalid entry", () => {
+  render(
+    <MemoryRouter><ReservationsPage /></MemoryRouter>
+  );
+  const guestSelector = screen.getByLabelText(/Number of guests/);
+  fireEvent.change(guestSelector, { target: { value: 11 } });
+  const btn = screen.getByText("Make your reservation");
+  expect(btn).toBeDisabled();
+})
+
+test("guest input valid entry", () => {
+  render(
+    <MemoryRouter><ReservationsPage /></MemoryRouter>
+  );
+  const guestSelector = screen.getByLabelText(/Number of guests/);
+  fireEvent.change(guestSelector, { target: { value: 5 } });
+  const btn = screen.getByText("Make your reservation");
+  expect(btn).not.toBeDisabled();
+})
+

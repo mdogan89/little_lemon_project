@@ -16,31 +16,32 @@ export default function ReservationsPage() {
 
     const navigate = useNavigate()
 
+    localStorage.setItem("bookings", [])
     const [confirmedBookings, setConfirmedBookings] = useState(localStorage.getItem("bookings"))
 
     const submitForm = (formData) => {
         const response = submitAPI(formData);
-        setConfirmedBookings(() => {
-            console.log(formData)
-            const booking = { ...confirmedBookings, formData }
-            console.log(booking)
-            console.log(confirmedBookings)
-            return booking
-        })
-
-        localStorage.setItem("bookings", JSON.stringify(confirmedBookings))
         if (response) {
+            console.log(formData);
+            setConfirmedBookings((bookings) => {
+                const booking = [...bookings, formData]
+                console.log(booking)
+                return booking
+            });
+            console.log(confirmedBookings);
+            localStorage.setItem("bookings", JSON.stringify(confirmedBookings))//stringify?
+
             navigate('/confirmed-booking')
         }
     }
 
 
 
-    return (<>
+    return (<main>
         <Reservations
             availableTimes={availableTimes}
             dispatch={dispatch}
             submitForm={submitForm}
         />
-    </>)
+    </main>)
 }

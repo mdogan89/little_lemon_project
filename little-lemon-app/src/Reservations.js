@@ -1,27 +1,77 @@
 import { React, useState } from 'react'
-import { json } from 'react-router-dom';
 
-// const initialDate = new Date().toISOString().substring(0, 10);
 
 export default function Reservations(props) {
 
+  const minDate = new Date().toISOString().substring(0, 10);
+
   const [formData, setFormData] = useState({
-    date: new Date().toISOString().substring(0, 10),
-    time: "",
+    date: minDate,
+    time: props.availableTimes[0],
     guests: 1,
     occasion: "Birthday"
   })
 
-  const minDate = new Date().toISOString().substring(0, 10);
+  const [disableSubmit, setDisableSubmit] = useState(false)
+
+
+  const handleFormChange = (e) => {
+
+    if (e.target.validity.valid) {
+      setDisableSubmit(false)
+    }
+    else {
+      setDisableSubmit(true)
+    }
+
+    if (e.target.name == "date") {
+      if (e.target.validity.valid) {
+        setFormData((formdata) => {
+          return { ...formdata, date: e.target.value }
+        });
+        props.dispatch(e.target.value);
+      }
+      else {
+        e.target.reportValidity();
+        setFormData((formdata) => {
+          return { ...formdata, date: e.target.value }
+        })
+      }
+    }
+    else if (e.target.name == "time") {
+      setFormData((formdata) => {
+        return { ...formdata, time: e.target.value }
+      })
+    }
+    else if (e.target.name == "guests") {
+      if (e.target.validity.valid) {
+        setFormData((formdata) => {
+          return { ...formdata, guests: e.target.value }
+        })
+      }
+      else {
+        e.target.reportValidity();
+        setFormData((formdata) => {
+          return { ...formdata, guests: e.target.value }
+        })
+      }
+    }
+    else if (e.target.name == "occasion") {
+      setFormData((formdata) => {
+        return { ...formdata, occasion: e.target.value }
+      })
+    }
+    else console.log(e)
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
     props.submitForm(formData);
-    setFormData(() => {
+    setFormData((...formdata) => {
       const data = {
-        ...formData,
-        date: new Date().toISOString().substring(0, 10),
-        time: "",
+        ...formdata,
+        date: minDate,
+        time: props.availableTimes[0],
         guests: 1,
         occasion: "Birthday"
       }
@@ -30,58 +80,43 @@ export default function Reservations(props) {
   }
 
 
+  // window.addEventListener("DOMContentLoaded", (event) => {
+  //   const dateInput = document.getElementById("res-date");
 
-  function handleDateChange(e) {
-    setFormData(() => {
-      const data = { ...formData, date: e.target.value }
-      return data
-    });
-    props.dispatch(e.target.value);
-    // console.log(props.availableTimes);
-  }
+  //   dateInput.addEventListener("focusout", () => {
+  //     if (dateInput.validity.valid) {
+  //       // dateInput.style.borderColor = "green"
+  //       return
+  //     }
+  //     else {
+  //       dateInput.reportValidity();
+  //     }
+  //   })
+  //   console.log("DOM fully loaded and parsed");
+  // });
 
-  const handleTimeChange = (e) => {
-    setFormData(() => {
-      const data = { ...formData, time: e.target.value }
-      return data
-    })
-  }
-
-  const handleGuestChange = (e) => {
-    setFormData(() => {
-      const data = { ...formData, guests: e.target.value }
-      return data
-    })
-  }
-
-  const handleOccasionChange = (e) => {
-    setFormData(() => {
-      const data = { ...formData, occasion: e.target.value }
-      return data
-    })
-  }
 
   return (
     <main>
       <section>
         <form id="res-form" onSubmit={handleSubmit}>
           <label htmlFor="res-date">Choose date</label>
-          <input type="date" id="res-date" value={formData.date} min={minDate} onChange={handleDateChange} />
+          <input type="date" id="res-date" name="date" value={formData.date} min={minDate} onChange={handleFormChange} required />
           <label htmlFor="res-time">Choose time</label>
-          <select data-testid="select" id="res-time" value={formData.time} onChange={handleTimeChange} required={true} >
+          <select data-testid="select" id="res-time" name="time" value={formData.time} onChange={handleFormChange} required={true} aria-label="On Click">
             {props.availableTimes.map((time) => (
               <option data-testid="select-option" key={time}>{time}</option>
             ))}
           </select>
           <label htmlFor="guests">Number of guests</label>
-          <input type="number" placeholder="1" min="1" max="10" id="guests"
-            value={formData.guests} onChange={handleGuestChange} />
+          <input type="number" placeholder="1-10" min="1" max="10" id="guests" name="guests"
+            value={formData.guests} onChange={handleFormChange} required />
           <label htmlFor="occasion">Occasion</label>
-          <select id="occasion" value={formData.occasion} onChange={handleOccasionChange}>
-            <option>Birthday</option>
-            <option>Anniversary</option>
+          <select id="occasion" value={formData.occasion} onChange={handleFormChange} name="occasion">
+            <option value="Birthday">Birthday</option>
+            <option value="Anniversary">Anniversary</option>
           </select>
-          <input type="submit" value="Make your reservation" />
+          <input type="submit" value="Make your reservation" disabled={disableSubmit} />
         </form>
       </section>
     </main>
