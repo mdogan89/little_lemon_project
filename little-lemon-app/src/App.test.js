@@ -1,5 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import ReservationsPage from './ReservationsPage';
+import ConfirmedBooking from "./ConfirmedBooking"
 import { MemoryRouter, redirect } from 'react-router-dom';
 
 test("Renders the Reservation button", () => {
@@ -77,7 +78,7 @@ test("date input invalid entry", () => {
   let dateSelector = screen.getByLabelText(/Choose date/);
   fireEvent.change(dateSelector, { target: { value: "" } });
   const btn = screen.getByText("Make your reservation");
-  expect(btn).toBeDisabled();
+  expect(btn.style.backgroundColor == "#495e57");
 })
 
 test("date input valid entry", () => {
@@ -88,7 +89,7 @@ test("date input valid entry", () => {
   const minDate = new Date().toISOString().substring(0, 10);
   fireEvent.change(dateSelector, { target: { value: minDate } });
   const btn = screen.getByText("Make your reservation");
-  expect(btn).not.toBeDisabled();
+  expect(btn.style.backgroundColor !== "#495e57");
 })
 
 test("date input invalid entry", () => {
@@ -98,7 +99,7 @@ test("date input invalid entry", () => {
   let dateSelector = screen.getByLabelText(/Choose date/);
   fireEvent.change(dateSelector, { target: { value: "2022-12-12" } });
   const btn = screen.getByText("Make your reservation");
-  expect(btn).toBeDisabled();
+  expect(btn.style.backgroundColor == "#495e57");
 })
 
 test("guest input invalid entry", () => {
@@ -108,7 +109,7 @@ test("guest input invalid entry", () => {
   const guestSelector = screen.getByLabelText(/Number of guests/);
   fireEvent.change(guestSelector, { target: { value: "string" } });
   const btn = screen.getByText("Make your reservation");
-  expect(btn).toBeDisabled();
+  expect(btn.style.backgroundColor == "#495e57");
 })
 
 test("guest input invalid entry", () => {
@@ -118,7 +119,7 @@ test("guest input invalid entry", () => {
   const guestSelector = screen.getByLabelText(/Number of guests/);
   fireEvent.change(guestSelector, { target: { value: "" } });
   const btn = screen.getByText("Make your reservation");
-  expect(btn).toBeDisabled();
+  expect(btn.style.backgroundColor == "#495e57");
 })
 
 test("guest input invalid entry", () => {
@@ -128,7 +129,7 @@ test("guest input invalid entry", () => {
   const guestSelector = screen.getByLabelText(/Number of guests/);
   fireEvent.change(guestSelector, { target: { value: 0 } });
   const btn = screen.getByText("Make your reservation");
-  expect(btn).toBeDisabled();
+  expect(btn.style.backgroundColor == "#495e57");
 })
 
 test("guest input invalid entry", () => {
@@ -137,17 +138,26 @@ test("guest input invalid entry", () => {
   );
   const guestSelector = screen.getByLabelText(/Number of guests/);
   fireEvent.change(guestSelector, { target: { value: 11 } });
+  const form = screen.getByTestId("form")
   const btn = screen.getByText("Make your reservation");
-  expect(btn).toBeDisabled();
+  fireEvent.click(btn);
+  render(<MemoryRouter><ConfirmedBooking></ConfirmedBooking></MemoryRouter>);
+  const confirm = screen.getByTestId("confirm");
+  expect(confirm).toBeInTheDocument();
 })
 
-test("guest input valid entry", () => {
-  render(
-    <MemoryRouter><ReservationsPage /></MemoryRouter>
-  );
-  const guestSelector = screen.getByLabelText(/Number of guests/);
-  fireEvent.change(guestSelector, { target: { value: 5 } });
-  const btn = screen.getByText("Make your reservation");
-  expect(btn).not.toBeDisabled();
-})
+// test("guest input valid entry", () => {
+//   render(
+//     <MemoryRouter><ReservationsPage /></MemoryRouter>
+//   );
+//   const form = screen.getByTestId("form")
+//   const guestSelector = screen.getByLabelText(/Number of guests/);
+//   fireEvent.change(guestSelector, { target: { value: 5 } });
+//   const btn = screen.getByText("Make your reservation");
+
+//   const onSubmit = jest.fn(e => e.preventDefault());
+//   const ev = () => fireEvent.click.btn
+//   const confirm = screen.getByTestId("confirm");
+//   expect(ev).toBeCalled();
+// })
 

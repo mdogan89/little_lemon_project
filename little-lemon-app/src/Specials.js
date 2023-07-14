@@ -28,10 +28,10 @@ export default function Specials() {
     <section id='specials'>
       <article>
         <h1>This weeks specials!</h1>
-        <button>Online Menu</button>
+        <button id="menu-button">Online Menu</button>
       </article>
       <article id="cards">
-      {specials.map((special) => (
+        {specials.map((special) => (
           <Card
             key={special.title}
             title={special.title}

@@ -2,6 +2,7 @@ import React, { useReducer, useState } from 'react';
 import Reservations from './Reservations';
 import { fetchAPI, submitAPI } from './API';
 import { useNavigate } from 'react-router-dom';
+import restaurant from "./img/restaurant.jpg"
 
 export default function ReservationsPage() {
 
@@ -35,9 +36,11 @@ export default function ReservationsPage() {
         }
     }
 
-
-
     return (<main>
+        <section id="res-header">
+            <img src={restaurant} alt='our restaurant'></img>
+            <h1>Book Now!</h1>
+        </section>
         <Reservations
             availableTimes={availableTimes}
             dispatch={dispatch}

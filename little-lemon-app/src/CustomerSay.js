@@ -26,7 +26,7 @@ const testimonials = [{
 export default function CustomerSay() {
   return (
     <section id="testimonials">
-      <h1>Testimonials</h1>
+      <h1>What our customers say!</h1>
       <article id="reviews">
         {testimonials.map((testimonial) => (
           <Testimonial

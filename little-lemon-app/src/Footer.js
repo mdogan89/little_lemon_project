@@ -1,5 +1,6 @@
 import React from 'react'
 import logo from "./img/Asset 18@4x.png"
+import { Link } from 'react-router-dom'
 
 const links = [
   {
@@ -8,11 +9,11 @@ const links = [
   },
   {
     section: "About",
-    href: "#about"
+    href: "/"
   },
   {
     section: "Menu",
-    href: "#"
+    href: "/"
   },
   {
     section: "Reservations",
@@ -20,11 +21,11 @@ const links = [
   },
   {
     section: "Order Online",
-    href: "#"
+    href: "/"
   },
   {
     section: "Login",
-    href: "#"
+    href: "/"
   }
 ]
 
@@ -39,11 +40,10 @@ export default function Footer() {
           <h5>Doormat Navigation</h5>
           <ul>
             {links.map(({ section, href }) => (
-              <li><a
-                key={href}
-                href={href}>
+              <li key={section}><Link
+                to={href}>
                 {section}
-              </a></li>
+              </Link></li>
             ))}
           </ul>
         </article>
@@ -56,9 +56,9 @@ export default function Footer() {
         <article>
           <h5>Social Media</h5>
           <ul>
-            <li> <a href='#'>Facebook</a> </li>
-            <li> <a href='#'>Instagram</a> </li>
-            <li> <a href='#'>Twitter</a> </li>
+            <li> <a href='/'>Facebook</a> </li>
+            <li> <a href='/'>Instagram</a> </li>
+            <li> <a href='/'>Twitter</a> </li>
           </ul>
         </article>
       </section>

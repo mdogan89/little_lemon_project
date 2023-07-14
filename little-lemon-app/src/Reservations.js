@@ -1,4 +1,5 @@
-import { React, useState } from 'react'
+import { React, useState } from 'react';
+// import glassss from "./img/glass.svg"
 
 
 export default function Reservations(props) {
@@ -9,22 +10,23 @@ export default function Reservations(props) {
     date: minDate,
     time: props.availableTimes[0],
     guests: 1,
-    occasion: "Birthday"
+    occasion: "Occasion"
   })
-
-  const [disableSubmit, setDisableSubmit] = useState(false)
-
 
   const handleFormChange = (e) => {
 
+    let elm = document.getElementById("submit");
+
     if (e.target.validity.valid) {
-      setDisableSubmit(false)
+      elm.style.backgroundColor = "#f4ce14";
+      elm.style.color = "#333333";
     }
     else {
-      setDisableSubmit(true)
+      elm.style.backgroundColor = "#495e57";
+      elm.style.color = "#edefee";
     }
 
-    if (e.target.name == "date") {
+    if (e.target.name === "date") {
       if (e.target.validity.valid) {
         setFormData((formdata) => {
           return { ...formdata, date: e.target.value }
@@ -38,12 +40,12 @@ export default function Reservations(props) {
         })
       }
     }
-    else if (e.target.name == "time") {
+    else if (e.target.name === "time") {
       setFormData((formdata) => {
         return { ...formdata, time: e.target.value }
       })
     }
-    else if (e.target.name == "guests") {
+    else if (e.target.name === "guests") {
       if (e.target.validity.valid) {
         setFormData((formdata) => {
           return { ...formdata, guests: e.target.value }
@@ -56,7 +58,7 @@ export default function Reservations(props) {
         })
       }
     }
-    else if (e.target.name == "occasion") {
+    else if (e.target.name === "occasion") {
       setFormData((formdata) => {
         return { ...formdata, occasion: e.target.value }
       })
@@ -73,52 +75,37 @@ export default function Reservations(props) {
         date: minDate,
         time: props.availableTimes[0],
         guests: 1,
-        occasion: "Birthday"
+        occasion: "Occasion"
       }
       return data
     })
   }
 
-
-  // window.addEventListener("DOMContentLoaded", (event) => {
-  //   const dateInput = document.getElementById("res-date");
-
-  //   dateInput.addEventListener("focusout", () => {
-  //     if (dateInput.validity.valid) {
-  //       // dateInput.style.borderColor = "green"
-  //       return
-  //     }
-  //     else {
-  //       dateInput.reportValidity();
-  //     }
-  //   })
-  //   console.log("DOM fully loaded and parsed");
-  // });
-
-
   return (
-    <main>
-      <section>
-        <form id="res-form" onSubmit={handleSubmit}>
-          <label htmlFor="res-date">Choose date</label>
-          <input type="date" id="res-date" name="date" value={formData.date} min={minDate} onChange={handleFormChange} required />
-          <label htmlFor="res-time">Choose time</label>
-          <select data-testid="select" id="res-time" name="time" value={formData.time} onChange={handleFormChange} required={true} aria-label="On Click">
-            {props.availableTimes.map((time) => (
-              <option data-testid="select-option" key={time}>{time}</option>
-            ))}
-          </select>
-          <label htmlFor="guests">Number of guests</label>
-          <input type="number" placeholder="1-10" min="1" max="10" id="guests" name="guests"
-            value={formData.guests} onChange={handleFormChange} required />
-          <label htmlFor="occasion">Occasion</label>
-          <select id="occasion" value={formData.occasion} onChange={handleFormChange} name="occasion">
-            <option value="Birthday">Birthday</option>
-            <option value="Anniversary">Anniversary</option>
-          </select>
-          <input type="submit" value="Make your reservation" disabled={disableSubmit} />
-        </form>
-      </section>
-    </main>
+    <section id="res-section">
+      <form id="res-form" data-testid="form" onSubmit={handleSubmit}>
+        <label htmlFor="res-date">Choose date:</label>
+        <input type="date" id="res-date" name="date" value={formData.date} min={minDate} onChange={handleFormChange} required />
+        <label htmlFor="res-time">Choose time:</label>
+        <select data-testid="select" id="res-time" name="time" value={formData.time} onChange={handleFormChange} required={true} aria-label="On Click">
+          {props.availableTimes.map((time) => (
+            <option data-testid="select-option" key={time}>{time}</option>
+          ))}
+        </select>
+        <label htmlFor="guests">Number of guests:</label>
+        <input type="number" placeholder="1-10" min="1" max="10" id="guests" name="guests"
+          value={formData.guests} onChange={handleFormChange} required />
+        <label htmlFor="occasion">Occasion:</label>
+        <select id="occasion" value={formData.occasion} onChange={handleFormChange} name="occasion">
+          <option id="Occasion" value="Occasion">Occasion</option>
+          <option value="Birthday">Birthday</option>
+          <option value="Anniversary">Anniversary</option>
+          <option value="Engagement">Engagement</option>
+          <option value="Other">Other</option>
+        </select>
+        <input id="submit" type="submit" value="Make your reservation" />
+      </form>
+    </section>
   )
 }
+
