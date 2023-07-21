@@ -1,7 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import ReservationsPage from './ReservationsPage';
-import ConfirmedBooking from "./ConfirmedBooking"
-import { MemoryRouter, redirect } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 
 test("Renders the Reservation button", () => {
   render(
@@ -14,20 +13,18 @@ test('Simulates inital times', () => {
   const { getByTestId, getAllByTestId } = render(
     <MemoryRouter><ReservationsPage /></MemoryRouter>);
   fireEvent.click(getByTestId('select'));
-  let options = getAllByTestId('select-option');
-  expect(options !== []);
+  const options = getAllByTestId('select-option');
+  expect(options.length > 0);
 })
 
 test("Simulates date change", () => {
   const { getByTestId, getAllByTestId } = render(
     <MemoryRouter><ReservationsPage /></MemoryRouter>);
   const dateSelector = screen.getByLabelText(/Choose date/);
-
   fireEvent.click(getByTestId('select'));
   const todaysOptions = getAllByTestId('select-option');
-  const date = "2024-01-01"
-
-  fireEvent.change(dateSelector, { target: { value: date } });
+  const invalidDate = "2024-01-01";
+  fireEvent.change(dateSelector, { target: { value: invalidDate } });
   fireEvent.click(getByTestId('select'));
   const newOptions = getAllByTestId('select-option');
   expect(todaysOptions !== newOptions);
@@ -40,7 +37,8 @@ test("Submits reservation form", () => {
   const data = localStorage.getItem("bookings");
   fireEvent.click(btn);
   const new_data = localStorage.getItem("bookings");
-  expect(data !== new_data)
+  expect(data !== new_data);
+  expect(btn.style.backgroundColor !== "#495e57");
 })
 
 test("date input html validation", () => {
@@ -75,9 +73,13 @@ test("date input invalid entry", () => {
   render(
     <MemoryRouter><ReservationsPage /></MemoryRouter>
   );
-  let dateSelector = screen.getByLabelText(/Choose date/);
+  const dateSelector = screen.getByLabelText(/Choose date/);
   fireEvent.change(dateSelector, { target: { value: "" } });
   const btn = screen.getByText("Make your reservation");
+  const data = localStorage.getItem("bookings");
+  fireEvent.click(btn);
+  const new_data = localStorage.getItem("bookings");
+  expect(data == new_data);
   expect(btn.style.backgroundColor == "#495e57");
 })
 
@@ -89,6 +91,10 @@ test("date input valid entry", () => {
   const minDate = new Date().toISOString().substring(0, 10);
   fireEvent.change(dateSelector, { target: { value: minDate } });
   const btn = screen.getByText("Make your reservation");
+  const data = localStorage.getItem("bookings");
+  fireEvent.click(btn);
+  const new_data = localStorage.getItem("bookings");
+  expect(data !== new_data);
   expect(btn.style.backgroundColor !== "#495e57");
 })
 
@@ -99,6 +105,10 @@ test("date input invalid entry", () => {
   let dateSelector = screen.getByLabelText(/Choose date/);
   fireEvent.change(dateSelector, { target: { value: "2022-12-12" } });
   const btn = screen.getByText("Make your reservation");
+  const data = localStorage.getItem("bookings");
+  fireEvent.click(btn);
+  const new_data = localStorage.getItem("bookings");
+  expect(data == new_data);
   expect(btn.style.backgroundColor == "#495e57");
 })
 
@@ -109,6 +119,10 @@ test("guest input invalid entry", () => {
   const guestSelector = screen.getByLabelText(/Number of guests/);
   fireEvent.change(guestSelector, { target: { value: "string" } });
   const btn = screen.getByText("Make your reservation");
+  const data = localStorage.getItem("bookings");
+  fireEvent.click(btn);
+  const new_data = localStorage.getItem("bookings");
+  expect(data == new_data);
   expect(btn.style.backgroundColor == "#495e57");
 })
 
@@ -119,6 +133,10 @@ test("guest input invalid entry", () => {
   const guestSelector = screen.getByLabelText(/Number of guests/);
   fireEvent.change(guestSelector, { target: { value: "" } });
   const btn = screen.getByText("Make your reservation");
+  const data = localStorage.getItem("bookings");
+  fireEvent.click(btn);
+  const new_data = localStorage.getItem("bookings");
+  expect(data == new_data);
   expect(btn.style.backgroundColor == "#495e57");
 })
 
@@ -129,6 +147,10 @@ test("guest input invalid entry", () => {
   const guestSelector = screen.getByLabelText(/Number of guests/);
   fireEvent.change(guestSelector, { target: { value: 0 } });
   const btn = screen.getByText("Make your reservation");
+  const data = localStorage.getItem("bookings");
+  fireEvent.click(btn);
+  const new_data = localStorage.getItem("bookings");
+  expect(data == new_data);
   expect(btn.style.backgroundColor == "#495e57");
 })
 
@@ -138,26 +160,41 @@ test("guest input invalid entry", () => {
   );
   const guestSelector = screen.getByLabelText(/Number of guests/);
   fireEvent.change(guestSelector, { target: { value: 11 } });
-  const form = screen.getByTestId("form")
   const btn = screen.getByText("Make your reservation");
+  const data = localStorage.getItem("bookings");
   fireEvent.click(btn);
-  render(<MemoryRouter><ConfirmedBooking></ConfirmedBooking></MemoryRouter>);
-  const confirm = screen.getByTestId("confirm");
-  expect(confirm).toBeInTheDocument();
+  const new_data = localStorage.getItem("bookings");
+  expect(data == new_data);
+  expect(btn.style.backgroundColor == "#495e57");
 })
 
-// test("guest input valid entry", () => {
-//   render(
-//     <MemoryRouter><ReservationsPage /></MemoryRouter>
-//   );
-//   const form = screen.getByTestId("form")
-//   const guestSelector = screen.getByLabelText(/Number of guests/);
-//   fireEvent.change(guestSelector, { target: { value: 5 } });
-//   const btn = screen.getByText("Make your reservation");
+test("guest input valid entry", () => {
+  render(
+    <MemoryRouter><ReservationsPage /></MemoryRouter>
+  );
+  const guestSelector = screen.getByLabelText(/Number of guests/);
+  fireEvent.change(guestSelector, { target: { value: 5 } });
+  const btn = screen.getByText("Make your reservation");
+  const data = localStorage.getItem("bookings");
+  fireEvent.click(btn);
+  const new_data = localStorage.getItem("bookings");
+  expect(data !== new_data);
+  expect(btn.style.backgroundColor !== "#495e57");
+})
 
-//   const onSubmit = jest.fn(e => e.preventDefault());
-//   const ev = () => fireEvent.click.btn
-//   const confirm = screen.getByTestId("confirm");
-//   expect(ev).toBeCalled();
-// })
+
+test("guest input invalid entry", () => {
+  render(
+    <MemoryRouter><ReservationsPage /></MemoryRouter>
+  );
+  const guestSelector = screen.getByLabelText(/Number of guests/);
+  fireEvent.change(guestSelector, { target: { value: 11 } });
+  const btn = screen.getByText("Make your reservation");
+  const data = localStorage.getItem("bookings");
+  fireEvent.click(btn);
+  const new_data = localStorage.getItem("bookings");
+  expect(data == new_data);
+  expect(btn.style.backgroundColor == "#495e57");
+})
+
 

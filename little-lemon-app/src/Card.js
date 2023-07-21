@@ -8,9 +8,9 @@ const Card = ({ title, price, description, imageSrc }) => {
         <div className="card" aria-label="Card">
             <img src={imageSrc} alt={title}></img>
             <div>
-                <h3>{title} <span>{price}</span></h3>
+                <h3>{title} <span aria-label="price">{price}</span></h3>
                 <p>{description}</p>
-                <a href="#">Order a delivery<img src={icon} alt="bicycle" aria-label="On Click"></img></a>
+                <a href="/">Order a delivery<img src={icon} alt="bicycle" aria-label="On Click"></img></a>
             </div>
         </div>
     )

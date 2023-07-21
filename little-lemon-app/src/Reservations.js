@@ -15,30 +15,11 @@ export default function Reservations(props) {
 
   const handleFormChange = (e) => {
 
-    let elm = document.getElementById("submit");
-
-    if (e.target.validity.valid) {
-      elm.style.backgroundColor = "#f4ce14";
-      elm.style.color = "#333333";
-    }
-    else {
-      elm.style.backgroundColor = "#495e57";
-      elm.style.color = "#edefee";
-    }
-
     if (e.target.name === "date") {
-      if (e.target.validity.valid) {
-        setFormData((formdata) => {
-          return { ...formdata, date: e.target.value }
-        });
-        props.dispatch(e.target.value);
-      }
-      else {
-        e.target.reportValidity();
-        setFormData((formdata) => {
-          return { ...formdata, date: e.target.value }
-        })
-      }
+      setFormData((formdata) => {
+        return { ...formdata, date: e.target.value }
+      });
+      props.dispatch(e.target.value);
     }
     else if (e.target.name === "time") {
       setFormData((formdata) => {
@@ -46,17 +27,9 @@ export default function Reservations(props) {
       })
     }
     else if (e.target.name === "guests") {
-      if (e.target.validity.valid) {
-        setFormData((formdata) => {
-          return { ...formdata, guests: e.target.value }
-        })
-      }
-      else {
-        e.target.reportValidity();
-        setFormData((formdata) => {
-          return { ...formdata, guests: e.target.value }
-        })
-      }
+      setFormData((formdata) => {
+        return { ...formdata, guests: e.target.value }
+      })
     }
     else if (e.target.name === "occasion") {
       setFormData((formdata) => {
@@ -81,11 +54,26 @@ export default function Reservations(props) {
     })
   }
 
+  const validateInput = (e) => {
+
+    const sub = document.getElementById("submit");
+
+    if (e.target.validity.valid) {
+      sub.style.backgroundColor = "#f4ce14";
+      sub.style.color = "#333333";
+    }
+    else {
+      e.target.reportValidity();
+      sub.style.backgroundColor = "#495e57";
+      sub.style.color = "#edefee";
+    }
+  }
+
   return (
     <section id="res-section">
       <form id="res-form" data-testid="form" onSubmit={handleSubmit}>
         <label htmlFor="res-date">Choose date:</label>
-        <input type="date" id="res-date" name="date" value={formData.date} min={minDate} onChange={handleFormChange} required />
+        <input type="date" id="res-date" name="date" value={formData.date} min={minDate} onChange={handleFormChange} onBlur={validateInput} required />
         <label htmlFor="res-time">Choose time:</label>
         <select data-testid="select" id="res-time" name="time" value={formData.time} onChange={handleFormChange} required={true} aria-label="On Click">
           {props.availableTimes.map((time) => (
@@ -94,7 +82,7 @@ export default function Reservations(props) {
         </select>
         <label htmlFor="guests">Number of guests:</label>
         <input type="number" placeholder="1-10" min="1" max="10" id="guests" name="guests"
-          value={formData.guests} onChange={handleFormChange} required />
+          value={formData.guests} onChange={handleFormChange} onBlur={validateInput} required />
         <label htmlFor="occasion">Occasion:</label>
         <select id="occasion" value={formData.occasion} onChange={handleFormChange} name="occasion">
           <option id="Occasion" value="Occasion">Occasion</option>

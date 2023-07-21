@@ -608,6 +608,11 @@ footer p {
   }
 }
 
+#confirm {
+  justify-content: center;
+  margin: 100px 0px;
+}
+
 /* .App-logo {
   height: 40vmin;
   pointer-events: none;

@@ -31,7 +31,6 @@ export default function ReservationsPage() {
             });
             console.log(confirmedBookings);
             localStorage.setItem("bookings", JSON.stringify(confirmedBookings))//stringify?
-
             navigate('/confirmed-booking')
         }
     }

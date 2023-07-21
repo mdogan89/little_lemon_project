@@ -11,11 +11,11 @@ const links = [
   },
   {
     section: "About",
-    href: "#about"
+    href: "/"
   },
   {
     section: "Menu",
-    href: "#"
+    href: "/"
   },
   {
     section: "Reservations",
@@ -23,11 +23,11 @@ const links = [
   },
   {
     section: "Order Online",
-    href: "#"
+    href: "/"
   },
   {
     section: "Login",
-    href: "#"
+    href: "/"
   }
 ]
 
