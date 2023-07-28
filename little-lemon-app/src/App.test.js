@@ -23,8 +23,8 @@ test("Simulates date change", () => {
   const dateSelector = screen.getByLabelText(/Choose date/);
   fireEvent.click(getByTestId('select'));
   const todaysOptions = getAllByTestId('select-option');
-  const invalidDate = "2024-01-01";
-  fireEvent.change(dateSelector, { target: { value: invalidDate } });
+  const validDate = "2024-01-01";
+  fireEvent.change(dateSelector, { target: { value: validDate } });
   fireEvent.click(getByTestId('select'));
   const newOptions = getAllByTestId('select-option');
   expect(todaysOptions !== newOptions);
@@ -69,7 +69,7 @@ test("guest input html validation", () => {
   expect(guestSelector).toHaveAttribute("max", "10");
 })
 
-test("date input invalid entry", () => {
+test("date input '' entry", () => {
   render(
     <MemoryRouter><ReservationsPage /></MemoryRouter>
   );
@@ -83,7 +83,7 @@ test("date input invalid entry", () => {
   expect(btn.style.backgroundColor == "#495e57");
 })
 
-test("date input valid entry", () => {
+test("date input today entry", () => {
   render(
     <MemoryRouter><ReservationsPage /></MemoryRouter>
   );
@@ -98,7 +98,7 @@ test("date input valid entry", () => {
   expect(btn.style.backgroundColor !== "#495e57");
 })
 
-test("date input invalid entry", () => {
+test("date input old date entry", () => {
   render(
     <MemoryRouter><ReservationsPage /></MemoryRouter>
   );
@@ -112,7 +112,7 @@ test("date input invalid entry", () => {
   expect(btn.style.backgroundColor == "#495e57");
 })
 
-test("guest input invalid entry", () => {
+test("guest input string entry", () => {
   render(
     <MemoryRouter><ReservationsPage /></MemoryRouter>
   );
@@ -126,7 +126,7 @@ test("guest input invalid entry", () => {
   expect(btn.style.backgroundColor == "#495e57");
 })
 
-test("guest input invalid entry", () => {
+test("guest input '' entry", () => {
   render(
     <MemoryRouter><ReservationsPage /></MemoryRouter>
   );
@@ -140,7 +140,7 @@ test("guest input invalid entry", () => {
   expect(btn.style.backgroundColor == "#495e57");
 })
 
-test("guest input invalid entry", () => {
+test("guest input 0 entry", () => {
   render(
     <MemoryRouter><ReservationsPage /></MemoryRouter>
   );
@@ -154,7 +154,7 @@ test("guest input invalid entry", () => {
   expect(btn.style.backgroundColor == "#495e57");
 })
 
-test("guest input invalid entry", () => {
+test("guest input 11 entry", () => {
   render(
     <MemoryRouter><ReservationsPage /></MemoryRouter>
   );
@@ -168,7 +168,7 @@ test("guest input invalid entry", () => {
   expect(btn.style.backgroundColor == "#495e57");
 })
 
-test("guest input valid entry", () => {
+test("guest input 5 entry", () => {
   render(
     <MemoryRouter><ReservationsPage /></MemoryRouter>
   );
@@ -183,7 +183,7 @@ test("guest input valid entry", () => {
 })
 
 
-test("guest input invalid entry", () => {
+test("guest input 11 entry", () => {
   render(
     <MemoryRouter><ReservationsPage /></MemoryRouter>
   );
@@ -197,4 +197,30 @@ test("guest input invalid entry", () => {
   expect(btn.style.backgroundColor == "#495e57");
 })
 
+test("guest input null entry", () => {
+  render(
+    <MemoryRouter><ReservationsPage /></MemoryRouter>
+  );
+  const guestSelector = screen.getByLabelText(/Number of guests/);
+  fireEvent.change(guestSelector, { target: { value: null } });
+  const btn = screen.getByText("Make your reservation");
+  const data = localStorage.getItem("bookings");
+  fireEvent.click(btn);
+  const new_data = localStorage.getItem("bookings");
+  expect(data == new_data);
+  expect(btn.style.backgroundColor == "#495e57");
+})
 
+test("date input null entry", () => {
+  render(
+    <MemoryRouter><ReservationsPage /></MemoryRouter>
+  );
+  let dateSelector = screen.getByLabelText(/Choose date/);
+  fireEvent.change(dateSelector, { target: { value: null } });
+  const btn = screen.getByText("Make your reservation");
+  const data = localStorage.getItem("bookings");
+  fireEvent.click(btn);
+  const new_data = localStorage.getItem("bookings");
+  expect(data == new_data);
+  expect(btn.style.backgroundColor == "#495e57");
+})

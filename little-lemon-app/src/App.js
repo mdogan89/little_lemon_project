@@ -11,7 +11,7 @@ function App() {
     <>
       <Nav />
       <Routes>
-        <Route path='/' element={<Homepage />}></Route>
+        <Route exact path='/' element={<Homepage />}></Route>
         <Route path='/reservations' element={<ReservationsPage />}></Route>
         <Route path='/confirmed-booking' element={<ConfirmedBooking />}></Route>
       </Routes>
